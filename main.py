@@ -15,7 +15,7 @@ def run_query(query_string, species, limit):
             return {"message": "Species must not be empty"}, 404
 
         with connect(host="ensembldb.ensembl.org", port="3306", database="ensembl_website_102",
-                     user='anonymous') as connection:  # TODO move user creds
+                     user='anonymous') as connection:
             with connection.cursor() as cursor:
 
                 # Inform the user if the species does not exist in the table
@@ -48,8 +48,8 @@ def run_query(query_string, species, limit):
                 cursor.execute(gene_search_query, val_tuple)
                 result = cursor.fetchall()
                 return {
-                           "data": [row[2] for row in result]
-                       }, 200  # Can we get by key rather than list index?
+                           "data": sorted([row[2] for row in result])
+                       }, 200
     except Error as e:
         print(e)
 
