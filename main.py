@@ -34,9 +34,6 @@ def run_query(query_string, species, limit):
                 if not isinstance(limit, int):
                     raise TypeError("The limit must be an integer")
 
-                # Set upper bound on query limit to prevent expensive queries
-                limit = min(limit, 1000)
-
                 # Append wildcard operator to query string to perform prefix search
                 query_string += "%"
 
